@@ -105,6 +105,23 @@
       margin-top: 20px;
       font-style: italic;
     }
+
+    /* Opt-out Link Styles */
+    .opt-out {
+      font-size: 12px;
+      color: #888;
+      margin-top: 25px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+    }
+    .opt-out a {
+      color: #0079D3;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .opt-out a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -127,6 +144,10 @@
       <button id="generateBtn" onclick="startGeneration()">Generate My Flair</button>
       
       <p class="copy-instruction">Copy your generated flair and post it in the sticky thread.</p>
+
+      <div class="opt-out">
+        Don't like your generated options? <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Click here to opt out.</a>
+      </div>
     </div>
   </div>
 
@@ -204,25 +225,43 @@
       "Worker"
     ];
 
-    // The invasive fake tasks
+    // OVER 30 INVASIVE FAKE TASKS
     const fakeTasks = [
       "Bypassing VPN protocols...",
       "Checking IP connection logs...",
       "Tracking down your Reddit alt accounts...",
-      "Undeleting your shameful comments...",
-      "Judging your lowball offers...",
+      "Undeleting your shameful comments from 2021...",
+      "Judging your lowball offers in the classifieds...",
       "Calculating your Karak-to-Blood ratio...",
       "Cross-referencing unpaid Salik fines...",
       "Scanning Talabat order history for poor dietary choices...",
-      "Eating a shawarma...",
+      "Taking a 5 minute break to eat a shawarma...",
       "Determining maximum allowed aesthetic value...",
       "Analyzing dashcam footage for lane discipline...",
-      "Reviewing your spelling errors from 2018...",
       "Uploading your browser history to the moderation cloud...",
-      "Forwarding your complaints to the void..."
+      "Forwarding your complaints to the void...",
+      "Accessing hidden WhatsApp backups...",
+      "Measuring distance to nearest Karak spot...",
+      "Evaluating your complaints about summer humidity...",
+      "Cross-referencing your post history with local news...",
+      "Downloading your 'Homework' folder to the cloud...",
+      "Reporting your tint percentage to authorities...",
+      "Analyzing your reliance on massage cards...",
+      "Checking your Noon shopping cart for poor financial decisions...",
+      "Judging your use of the word 'Inshallah' as a delay tactic...",
+      "Searching for your lost Emirates ID...",
+      "Triangulating your position based on nearest shawarma shop...",
+      "Auditing your last argument in the daily thread...",
+      "Scanning your camera roll for blurry Burj Khalifa photos...",
+      "Re-activating your cancelled gym membership...",
+      "Calculating the structural integrity of your gaming chair...",
+      "Syncing with DEWA to check if you left the AC on...",
+      "Translating your passive-aggressive emails...",
+      "Detecting high levels of Wasata usage...",
+      "Downloading more RAM..."
     ];
 
-    // The meta/sassy quips
+    // EXPANDED SASSY QUIPS
     const sassyQuips = [
       "<span class='term-sassy'>We can see your patience running out...</span>",
       "<span class='term-sassy'>Is that a sigh we detect through your microphone?</span>",
@@ -231,7 +270,15 @@
       "<span class='term-sassy'>Your flair is currently stuck in E11 traffic...</span>",
       "<span class='term-sassy'>Sighing audibly in binary...</span>",
       "<span class='term-sassy'>Hold on, the hamster powering the server died. Finding a replacement...</span>",
-      "<span class='term-sassy'>Almost done... or maybe we just started.</span>"
+      "<span class='term-sassy'>Almost done... or maybe we just started.</span>",
+      "<span class='term-sassy'>You're clicking too fast. Calm down.</span>",
+      "<span class='term-sassy'>We know what you did in the 2022 daily thread.</span>",
+      "<span class='term-sassy'>Are you really going to use this flair?</span>",
+      "<span class='term-sassy'>Judging you heavily right now...</span>",
+      "<span class='term-sassy'>This would be faster if you had premium...</span>",
+      "<span class='term-sassy'>Error 404: Sense of humor not found. Compensating...</span>",
+      "<span class='term-sassy'>Don't look behind you.</span>",
+      "<span class='term-sassy'>Is it getting hot in here, or is it just your CPU?</span>"
     ];
 
     function getRandomWord(array) {
@@ -295,7 +342,6 @@
           step++;
 
           // Randomize the delay to make it feel realistically slow and annoying
-          // Delays will be between 1.2 seconds and 2.8 seconds per line
           const randomDelay = Math.floor(Math.random() * 1600) + 1200; 
           setTimeout(printTerminalLine, randomDelay); 
 
