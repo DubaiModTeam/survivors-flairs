@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mod-AI Flair Prompt Generator</title>
+  <title>Mod-AI Custom Flair Generator</title>
   <style>
     body { 
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
@@ -31,7 +31,8 @@
     .survivor-tag { font-size: 12px; background: #e6f4ea; color: #1e7e34; padding: 4px 8px; border-radius: 4px; vertical-align: middle; font-weight: bold;}
     p.instruction { color: #5a5a5a; font-size: 15px; margin-bottom: 25px; line-height: 1.5;}
     
-    #prompt-display {
+    /* Flair Output Box */
+    #flair-display {
       background: #fcfcfc;
       border: 2px dashed #ccc;
       border-radius: 8px;
@@ -54,6 +55,23 @@
       letter-spacing: 1px;
     }
 
+    /* Terminal Processing Area */
+    #processing-terminal {
+      display: none;
+      background: #1e1e1e;
+      color: #00ff00;
+      font-family: monospace;
+      font-size: 13px;
+      text-align: left;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      min-height: 100px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    }
+    .term-line { margin: 4px 0; }
+    .term-highlight { color: #ffaa00; }
+
     button#generateBtn { 
       padding: 14px 28px; 
       background-color: #ff4500;
@@ -68,6 +86,7 @@
     }
     button#generateBtn:hover { background-color: #e03d00; transform: translateY(-1px); }
     button#generateBtn:active { transform: translateY(1px); }
+    button#generateBtn:disabled { background-color: #a2a2a2; cursor: not-allowed; box-shadow: none; transform: none;}
 
     .copy-instruction {
       font-size: 13px;
@@ -81,20 +100,22 @@
 
   <div class="main-container">
     <div class="portal-box">
-      <h2>Mod-AI: Safe Mode <span class="survivor-tag">PURGE SURVIVOR</span></h2>
+      <h2>Mod-AI: Safe Mode <span class="survivor-tag">FLAIR GENERATOR</span></h2>
       <p class="instruction">
-        Congratulations on surviving the Predictive Action List. Click the button below to generate your 3 random words. Copy and paste them into the Reddit thread to receive your custom flair!
+        Congratulations on surviving the Predictive Action List. Click the button below to let the AI assign your new identity.
       </p>
       
-      <div id="prompt-display">
+      <div id="processing-terminal"></div>
+
+      <div id="flair-display">
         <span class="word" id="word1">???</span>
         <span class="word" id="word2">???</span>
         <span class="word" id="word3">???</span>
       </div>
 
-      <button id="generateBtn" onclick="generateWords()">Generate Prompts</button>
+      <button id="generateBtn" onclick="startGeneration()">Generate My Flair</button>
       
-      <p class="copy-instruction">Post these exact three words in the sticky thread.</p>
+      <p class="copy-instruction">Copy your generated flair and post it in the sticky thread.</p>
     </div>
   </div>
 
@@ -172,20 +193,85 @@
       "Worker"
     ];
 
+    // The fake tasks the "AI" does before giving a flair
+    const fakeTasks = [
+      "Bypassing VPN protocols...",
+      "Checking IP connection logs...",
+      "Tracking down your Reddit alt accounts...",
+      "Undeleting your shameful comments...",
+      "Judging your lowball offers...",
+      "Calculating your Karak-to-Blood ratio...",
+      "Cross-referencing unpaid Salik fines...",
+      "Scanning Talabat order history for poor dietary choices...",
+      "Eating a shawarma...",
+      "Determining maximum allowed aesthetic value..."
+    ];
+
     function getRandomWord(array) {
       return array[Math.floor(Math.random() * array.length)];
     }
 
-    function generateWords() {
+    // Helper to shuffle our fake tasks so it's different every time
+    function shuffleArray(array) {
+      let curId = array.length;
+      while (0 !== curId) {
+        let randId = Math.floor(Math.random() * curId);
+        curId -= 1;
+        let tmp = array[curId];
+        array[curId] = array[randId];
+        array[randId] = tmp;
+      }
+      return array;
+    }
+
+    function startGeneration() {
+      const btn = document.getElementById("generateBtn");
+      const terminal = document.getElementById("processing-terminal");
+      const flairDisplay = document.getElementById("flair-display");
+
+      // Lock button and swap views
+      btn.disabled = true;
+      btn.innerText = "Processing Data...";
+      flairDisplay.style.display = "none";
+      terminal.style.display = "block";
+      terminal.innerHTML = ""; // Clear old terminal lines
+
+      // Pick 4 random fake tasks for this run
+      const selectedTasks = shuffleArray([...fakeTasks]).slice(0, 4);
+      selectedTasks.push("<span class='term-highlight'>IDENTITY COMPILED. DISPENSING FLAIR...</span>");
+      
+      let step = 0;
+
+      // Print lines to terminal with a delay
+      function printTerminalLine() {
+        if (step < selectedTasks.length) {
+          const newLine = document.createElement("div");
+          newLine.className = "term-line";
+          newLine.innerHTML = `> ${selectedTasks[step]}`;
+          terminal.appendChild(newLine);
+          step++;
+          setTimeout(printTerminalLine, 600); // 600ms per line
+        } else {
+          // Finished terminal, trigger actual flair generation
+          setTimeout(() => {
+            terminal.style.display = "none";
+            flairDisplay.style.display = "flex";
+            generateWords(btn);
+          }, 500);
+        }
+      }
+
+      // Start the fake sequence
+      printTerminalLine();
+    }
+
+    function generateWords(btn) {
       const w1 = document.getElementById("word1");
       const w2 = document.getElementById("word2");
       const w3 = document.getElementById("word3");
-      const btn = document.getElementById("generateBtn");
 
-      // Shuffle effect
+      // Rapid shuffle effect before settling on the flair
       let shuffles = 0;
-      btn.disabled = true;
-      
       const interval = setInterval(() => {
         w1.innerText = getRandomWord(wordBank1);
         w2.innerText = getRandomWord(wordBank2);
@@ -195,7 +281,7 @@
         if (shuffles > 15) {
           clearInterval(interval);
           btn.disabled = false;
-          btn.innerText = "Re-Roll Prompts";
+          btn.innerText = "Re-Roll My Flair";
         }
       }, 50);
     }
