@@ -25,7 +25,7 @@
       border-radius: 8px; 
       box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
       width: 100%;
-      max-width: 600px;
+      max-width: 650px;
     }
     h2 { margin-top: 0; color: #1e7e34; font-weight: 800;}
     .survivor-tag { font-size: 12px; background: #e6f4ea; color: #1e7e34; padding: 4px 8px; border-radius: 4px; vertical-align: middle; font-weight: bold;}
@@ -42,7 +42,7 @@
       justify-content: center;
       align-items: center;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 15px;
     }
     
     .word {
@@ -92,7 +92,7 @@
         <span class="word" id="word3">???</span>
       </div>
 
-      <button id="generateBtn" onclick="generateWords()">Generate My Prompts</button>
+      <button id="generateBtn" onclick="generateWords()">Generate Prompts</button>
       
       <p class="copy-instruction">Post these exact three words in the sticky thread.</p>
     </div>
@@ -101,38 +101,75 @@
   <script>
     // Bank 1: Adjectives and Descriptors
     const wordBank1 = [
-      "Sunburnt", "Bougie", "Humid", "Karak-Fueled", "Sandy", 
-      "Sweaty", "Opulent", "Traffic-Stuck", "Fined", "Chiller-Free", 
-      "Habibi", "Speeding", "Discounted", "Overpriced", "Lost",
-      "Desert", "Glitzy", "Sun-Kissed", "AC-Addicted", "Sleepy", 
-      "Chaotic", "Enthusiastic", "Reluctant", "Professional", "Amateur", 
-      "Caffeinated", "Grumpy", "Cheerful", "Confused", "Dedicated", 
-      "Wandering", "Optimistic", "Sarcastic", "Chill", "Foggy", 
-      "Vintage", "Authentic", "Hidden", "Polite", "Impatient"
+      "Sunburnt", "Bougie", "Humid", "Karak-Fueled", "Sandy", "Sweaty", "Opulent", "Traffic-Stuck", 
+      "Fined", "Chiller-Free", "Habibi", "Speeding", "Discounted", "Overpriced", "Lost", "Desert", 
+      "Glitzy", "Sun-Kissed", "AC-Addicted", "Sleepy", "Chaotic", "Enthusiastic", "Reluctant", 
+      "Professional", "Amateur", "Caffeinated", "Grumpy", "Cheerful", "Confused", "Dedicated", 
+      "Wandering", "Optimistic", "Sarcastic", "Chill", "Foggy", "Vintage", "Authentic", "Hidden", 
+      "Polite", "Impatient", "Bedouin", "Spiced", "Roasted", "Nomadic", "Generous", "Hospitable", 
+      "Bustling", "Ancient", "Modern", "Gilded", "Absurd", "Accidental", "Aggressive", "Ambitious", 
+      "Anxious", "Awkward", "Bold", "Brave", "Brilliant", "Casual", "Cautious", "Clumsy", "Confident", 
+      "Cozy", "Cynical", "Dapper", "Dazed", "Defiant", "Delirious", "Desperate", "Dramatic", "Eccentric", 
+      "Eager", "Earnest", "Elaborate", "Elegant", "Elite", "Elusive", "Epic", "Erratic", "Exhausted", 
+      "Fancy", "Feral", "Fierce", "Flawless", "Frantic", "Frugal", "Furious", "Gentle", "Glorious", 
+      "Goofy", "Graceful", "Grateful", "Heroic", "Hilarious", "Humble", "Hyper", "Ignorant", "Innocent", 
+      "Intense", "Ironic", "Jaded", "Jealous", "Joyful", "Lazy", "Legendary", "Logical", "Loyal", "Lucky", 
+      "Majestic", "Manic", "Massive", "Mild", "Mischievous", "Modest", "Mysterious", "Naive", "Nervous", 
+      "Noble", "Obnoxious", "Obsessive", "Odd", "Outrageous", "Paranoid", "Patient", "Peculiar", "Petty", 
+      "Pompous", "Practical", "Proud", "Quirky", "Radiant", "Radical", "Rational", "Reckless", "Relaxed", 
+      "Restless", "Righteous", "Ruthless", "Sassy", "Savage", "Sensible", "Serious", "Shady", "Shameless", 
+      "Silent", "Silly", "Sincere", "Slick", "Smug", "Sneaky", "Stubborn", "Subtle", "Suspicious", 
+      "Tactical", "Tense", "Thirsty", "Tired", "Tolerant", "Tragic", "Triumphant", "Unhinged", "Unlucky", 
+      "Valiant", "Vicious", "Vigilant", "Wild", "Wise", "Witty", "Zealous"
     ];
 
-    // Bank 2: Nouns and Tropes
+    // Bank 2: Nouns, Tropes, and Objects
     const wordBank2 = [
-      "Patrol", "Shawarma", "Salik", "Talabat", "Brunch", 
-      "Entertainer", "Metro", "Massage-Card", "Oud", "Falcon", 
-      "Roundabout", "Scooter", "Staycation", "Dirham", "Jet-Ski",
-      "Karak", "Burj", "Marina", "Souk", "Mall", 
-      "Cafeteria", "Gahwa", "Dates", "Sandstorm", "Careem", 
-      "Traffic", "Coffee", "Weekend", "Sunset", "Delivery", 
-      "WiFi", "Bicycle", "Camera", "Ticket", "Bargain", 
-      "Heatwave", "Festival", "Passport", "Luggage", "Oasis"
+      "Patrol", "Shawarma", "Salik", "Talabat", "Brunch", "Entertainer", "Metro", "Massage-Card", "Oud", 
+      "Falcon", "Roundabout", "Scooter", "Staycation", "Dirham", "Jet-Ski", "Karak", "Burj", "Marina", 
+      "Souk", "Mall", "Cafeteria", "Gahwa", "Dates", "Sandstorm", "Careem", "Traffic", "Coffee", "Weekend", 
+      "Sunset", "Delivery", "WiFi", "Bicycle", "Camera", "Ticket", "Bargain", "Heatwave", "Festival", 
+      "Passport", "Luggage", "Oasis", "Hummus", "Falafel", "Zaatar", "Majlis", "Shisha", "Mint-Tea", 
+      "Baklava", "Kunafa", "Mezze", "Camel", "Dallah", "Medina", "Wasta", "Bakhour", "Thobe", "Abaya", 
+      "Fatoosh", "Kabsa", "Dunes", "Bazaar", "Algorithm", "Anomaly", "Artifact", "Asset", "Beacon", 
+      "Blueprint", "Bureaucrat", "Catalyst", "Cipher", "Cloud", "Comet", "Compass", "Console", "Database", 
+      "Dilemma", "Dimension", "Disaster", "Document", "Domain", "Echo", "Eclipse", "Enigma", "Entity", 
+      "Equation", "Error", "Facade", "Fiction", "Fireball", "Formula", "Fragment", "Gadget", "Galaxy", 
+      "Ghost", "Gimmick", "Glacier", "Goblin", "Hazard", "Hologram", "Horizon", "Illusion", "Incident", 
+      "Invoice", "Jackpot", "Jargon", "Labyrinth", "Laser", "Legacy", "Legend", "Loophole", "Machine", 
+      "Matrix", "Meteor", "Mirage", "Missile", "Molecule", "Momentum", "Monument", "Mystery", "Nebula", 
+      "Network", "Ninja", "Noodle", "Omen", "Oracle", "Orbit", "Paradox", "Parasite", "Phantom", 
+      "Phenomenon", "Pixel", "Planet", "Plasma", "Plugin", "Portal", "Protocol", "Puzzle", "Pyramid", 
+      "Quest", "Radar", "Rainbow", "Recipe", "Relic", "Riddle", "Robot", "Rocket", "Router", "Satellite", 
+      "Scenario", "Scroll", "Shadow", "Signal", "Skeleton", "Software", "Specter", "Sphere", "Spreadsheet", 
+      "Sprite", "Statistic", "Strategy", "Syndicate", "Syntax", "System", "Tactic", "Theory", "Tornado", 
+      "Tsunami", "Universe", "Vacuum", "Variable", "Vector", "Velocity", "Vortex", "Widget", "Wizard"
     ];
 
-    // Bank 3: Personas and Roles
+    // Bank 3: Personas, Roles, and Actions
     const wordBank3 = [
-      "Tailgater", "Connoisseur", "Evader", "Enthusiast", "Survivor", 
-      "Influencer", "Commuter", "VIP", "Navigator", "Hunter", 
-      "Complainer", "Enjoyer", "Bargainer", "Expert", "Tourist",
-      "Resident", "Expat", "Founder", "Driver", "Shopper", 
-      "Foodie", "Explorer", "Master", "Novice", "Critic", 
-      "Defender", "Hoarder", "Philosopher", "Observer", "Wanderer", 
-      "Collector", "Strategist", "Dreamer", "Overthinker", "Procrastinator", 
-      "Hero", "Legend", "Local", "Reviewer", "Champion"
+      "Tailgater", "Connoisseur", "Evader", "Enthusiast", "Survivor", "Influencer", "Commuter", "VIP", 
+      "Navigator", "Hunter", "Complainer", "Enjoyer", "Bargainer", "Expert", "Tourist", "Resident", 
+      "Expat", "Founder", "Driver", "Shopper", "Foodie", "Explorer", "Master", "Novice", "Critic", 
+      "Defender", "Hoarder", "Philosopher", "Observer", "Wanderer", "Collector", "Strategist", "Dreamer", 
+      "Overthinker", "Procrastinator", "Hero", "Legend", "Local", "Reviewer", "Champion", "Sheikh", 
+      "Vendor", "Host", "Weaver", "Poet", "Trader", "Nomad", "Captain", "Diplomat", "Academic", "Acrobat", 
+      "Admiral", "Agent", "Ambassador", "Analyst", "Architect", "Assassin", "Astronaut", "Athlete", 
+      "Auditor", "Author", "Baker", "Bandit", "Banker", "Baron", "Botanist", "Brawler", "Builder", 
+      "Burglar", "Carpenter", "Cartographer", "Chancellor", "Chef", "Chemist", "Cleric", "Clown", 
+      "Commander", "Comrade", "Consultant", "Cop", "Courier", "Creator", "Crusader", "Curator", "Cyborg", 
+      "Dancer", "Dealer", "Delegate", "Deputy", "Designer", "Detective", "Dictator", "Director", "Doctor", 
+      "Duke", "Economist", "Editor", "Emperor", "Engineer", "Executive", "Fanatic", "Farmer", "Fighter", 
+      "Fool", "Freelancer", "Gambler", "General", "Genius", "Gladiator", "Governor", "Guard", "Hacker", 
+      "Healer", "Historian", "Hustler", "Inspector", "Instructor", "Intern", "Inventor", "Investigator", 
+      "Judge", "Knight", "Leader", "Magician", "Magnate", "Manager", "Mayor", "Mechanic", "Medic", 
+      "Merchant", "Messenger", "Minion", "Monarch", "Monk", "Mutant", "Mystic", "Narrator", "Officer", 
+      "Operator", "Outlaw", "Overlord", "Paladin", "Patron", "Peasant", "Pilot", "Pirate", "Player", 
+      "Politician", "President", "Priest", "Principal", "Professor", "Prophet", "Ranger", "Rebel", 
+      "Recruit", "Referee", "Reporter", "Rogue", "Sailor", "Samurai", "Scholar", "Scientist", "Scout", 
+      "Scribe", "Senator", "Sheriff", "Smuggler", "Sniper", "Soldier", "Spy", "Squire", "Student", 
+      "Surgeon", "Tactician", "Teacher", "Technician", "Thief", "Traitor", "Warden", "Warrior", "Watcher", 
+      "Worker"
     ];
 
     function getRandomWord(array) {
@@ -145,7 +182,7 @@
       const w3 = document.getElementById("word3");
       const btn = document.getElementById("generateBtn");
 
-      // Add a quick shuffle effect for fun
+      // Shuffle effect
       let shuffles = 0;
       btn.disabled = true;
       
@@ -155,7 +192,7 @@
         w3.innerText = getRandomWord(wordBank3);
         shuffles++;
 
-        if (shuffles > 15) { // Increased shuffle time slightly for the larger lists
+        if (shuffles > 15) {
           clearInterval(interval);
           btn.disabled = false;
           btn.innerText = "Re-Roll Prompts";
