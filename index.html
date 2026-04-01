@@ -63,14 +63,25 @@
       font-family: monospace;
       font-size: 13px;
       text-align: left;
-      padding: 15px;
+      padding: 20px;
       border-radius: 8px;
       margin-bottom: 25px;
-      min-height: 100px;
+      min-height: 150px;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
     }
-    .term-line { margin: 4px 0; }
-    .term-highlight { color: #ffaa00; }
+    .term-line { margin: 6px 0; }
+    .term-highlight { color: #ffaa00; font-weight: bold; }
+    .term-sassy { color: #ff5555; font-style: italic; }
+    .term-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background-color: #00ff00;
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 5px;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
 
     button#generateBtn { 
       padding: 14px 28px; 
@@ -193,7 +204,7 @@
       "Worker"
     ];
 
-    // The fake tasks the "AI" does before giving a flair
+    // The invasive fake tasks
     const fakeTasks = [
       "Bypassing VPN protocols...",
       "Checking IP connection logs...",
@@ -204,14 +215,29 @@
       "Cross-referencing unpaid Salik fines...",
       "Scanning Talabat order history for poor dietary choices...",
       "Eating a shawarma...",
-      "Determining maximum allowed aesthetic value..."
+      "Determining maximum allowed aesthetic value...",
+      "Analyzing dashcam footage for lane discipline...",
+      "Reviewing your spelling errors from 2018...",
+      "Uploading your browser history to the moderation cloud...",
+      "Forwarding your complaints to the void..."
+    ];
+
+    // The meta/sassy quips
+    const sassyQuips = [
+      "<span class='term-sassy'>We can see your patience running out...</span>",
+      "<span class='term-sassy'>Is that a sigh we detect through your microphone?</span>",
+      "<span class='term-sassy'>Taking a quick Karak break. Be right back...</span>",
+      "<span class='term-sassy'>If you refresh the page, we ban your main account.</span>",
+      "<span class='term-sassy'>Your flair is currently stuck in E11 traffic...</span>",
+      "<span class='term-sassy'>Sighing audibly in binary...</span>",
+      "<span class='term-sassy'>Hold on, the hamster powering the server died. Finding a replacement...</span>",
+      "<span class='term-sassy'>Almost done... or maybe we just started.</span>"
     ];
 
     function getRandomWord(array) {
       return array[Math.floor(Math.random() * array.length)];
     }
 
-    // Helper to shuffle our fake tasks so it's different every time
     function shuffleArray(array) {
       let curId = array.length;
       while (0 !== curId) {
@@ -229,39 +255,61 @@
       const terminal = document.getElementById("processing-terminal");
       const flairDisplay = document.getElementById("flair-display");
 
-      // Lock button and swap views
+      // Lock UI
       btn.disabled = true;
-      btn.innerText = "Processing Data...";
+      btn.innerText = "Analyzing Your Data...";
       flairDisplay.style.display = "none";
       terminal.style.display = "block";
-      terminal.innerHTML = ""; // Clear old terminal lines
+      terminal.innerHTML = ""; // Clear old lines
 
-      // Pick 4 random fake tasks for this run
-      const selectedTasks = shuffleArray([...fakeTasks]).slice(0, 4);
-      selectedTasks.push("<span class='term-highlight'>IDENTITY COMPILED. DISPENSING FLAIR...</span>");
+      // Build a custom script: 3 tasks -> 1 sass -> 3 tasks -> 1 sass
+      const selectedTasks = shuffleArray([...fakeTasks]);
+      const selectedSass = shuffleArray([...sassyQuips]);
+      
+      const scriptLines = [
+        selectedTasks[0],
+        selectedTasks[1],
+        selectedTasks[2],
+        selectedSass[0],
+        selectedTasks[3],
+        selectedTasks[4],
+        selectedTasks[5],
+        selectedSass[1],
+        "<span class='term-highlight'>IDENTITY COMPILED. DISPENSING FLAIR...</span>"
+      ];
       
       let step = 0;
 
-      // Print lines to terminal with a delay
       function printTerminalLine() {
-        if (step < selectedTasks.length) {
+        // Remove cursor from previous line if it exists
+        const oldCursor = document.getElementById("term-cursor");
+        if (oldCursor) oldCursor.remove();
+
+        if (step < scriptLines.length) {
           const newLine = document.createElement("div");
           newLine.className = "term-line";
-          newLine.innerHTML = `> ${selectedTasks[step]}`;
+          // Add text and the blinking cursor to the current line
+          newLine.innerHTML = `> ${scriptLines[step]}<span id="term-cursor" class="term-cursor"></span>`;
           terminal.appendChild(newLine);
+          
           step++;
-          setTimeout(printTerminalLine, 600); // 600ms per line
+
+          // Randomize the delay to make it feel realistically slow and annoying
+          // Delays will be between 1.2 seconds and 2.8 seconds per line
+          const randomDelay = Math.floor(Math.random() * 1600) + 1200; 
+          setTimeout(printTerminalLine, randomDelay); 
+
         } else {
-          // Finished terminal, trigger actual flair generation
+          // Finished terminal
           setTimeout(() => {
             terminal.style.display = "none";
             flairDisplay.style.display = "flex";
             generateWords(btn);
-          }, 500);
+          }, 800);
         }
       }
 
-      // Start the fake sequence
+      // Kick off the script
       printTerminalLine();
     }
 
