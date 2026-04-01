@@ -225,7 +225,7 @@
       "Worker"
     ];
 
-    // OVER 30 INVASIVE FAKE TASKS
+    // THE MASSIVE LIST OF FAKE TASKS
     const fakeTasks = [
       "Bypassing VPN protocols...",
       "Checking IP connection logs...",
@@ -258,7 +258,23 @@
       "Syncing with DEWA to check if you left the AC on...",
       "Translating your passive-aggressive emails...",
       "Detecting high levels of Wasata usage...",
-      "Downloading more RAM..."
+      "Downloading more RAM...",
+      "Deploying tactical downvotes...",
+      "Submitting your IP to the RTA for review...",
+      "Searching for your lost Nol card...",
+      "Calculating the aerodynamics of your Nissan Patrol...",
+      "Judging your use of the 'Need Advice' flair...",
+      "Consulting the oracle at Global Village...",
+      "Evaluating your survival chances in July...",
+      "Scanning your profile for hidden cryptocurrency shills...",
+      "Translating your local slang back into English...",
+      "Cross-referencing your posts with common sense...",
+      "Upvoting our own moderator comments...",
+      "Optimizing shawarma delivery routes...",
+      "Investigating your questionable taste in memes...",
+      "Defragmenting your nostalgia...",
+      "Calibrating the Ban Hammer...",
+      "Re-reading the subreddit rules for you..."
     ];
 
     // EXPANDED SASSY QUIPS
@@ -278,7 +294,17 @@
       "<span class='term-sassy'>This would be faster if you had premium...</span>",
       "<span class='term-sassy'>Error 404: Sense of humor not found. Compensating...</span>",
       "<span class='term-sassy'>Don't look behind you.</span>",
-      "<span class='term-sassy'>Is it getting hot in here, or is it just your CPU?</span>"
+      "<span class='term-sassy'>Is it getting hot in here, or is it just your CPU?</span>",
+      "<span class='term-sassy'>Still here? Fascinating.</span>",
+      "<span class='term-sassy'>We're purposely making this take longer, by the way.</span>",
+      "<span class='term-sassy'>This is harder than finding parking in Deira.</span>",
+      "<span class='term-sassy'>Your data is... surprisingly boring.</span>",
+      "<span class='term-sassy'>Did you really just try to click somewhere else?</span>",
+      "<span class='term-sassy'>Loading... just kidding, we're just ignoring you.</span>",
+      "<span class='term-sassy'>Blinking won't make it go faster.</span>",
+      "<span class='term-sassy'>Our AI is currently reconsidering its life choices.</span>",
+      "<span class='term-sassy'>Please hold. Your call is important to us. LOL.</span>",
+      "<span class='term-sassy'>We honestly expected better from a former mod...</span>"
     ];
 
     function getRandomWord(array) {
@@ -326,6 +352,7 @@
       ];
       
       let step = 0;
+      let hasStuck = false; // Track if we've already done the 10-second hang
 
       function printTerminalLine() {
         // Remove cursor from previous line if it exists
@@ -341,8 +368,15 @@
           
           step++;
 
-          // Randomize the delay to make it feel realistically slow and annoying
-          const randomDelay = Math.floor(Math.random() * 1600) + 1200; 
+          // Base random delay (1.2 to 2.8 seconds)
+          let randomDelay = Math.floor(Math.random() * 1600) + 1200; 
+
+          // 25% chance to trigger the agonizing 10-second hang on a middle step
+          if (!hasStuck && step > 2 && step < scriptLines.length - 1 && Math.random() < 0.25) {
+            randomDelay = 10000; // 10 seconds
+            hasStuck = true;
+          }
+
           setTimeout(printTerminalLine, randomDelay); 
 
         } else {
