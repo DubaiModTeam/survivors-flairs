@@ -392,11 +392,6 @@
 
           // Base random delay (1.2 to 2.8 seconds)
           let randomDelay = Math.floor(Math.random() * 1600) + 1200; 
-
-          // 25% chance to trigger the agonizing 10-second hang on a middle step
-          if (!hasStuck && step > 2 && step < scriptLines.length - 1 && Math.random() < 0.25) {
-            randomDelay = 10000; // 10 seconds
-            hasStuck = true;
           }
 
           setTimeout(printTerminalLine, randomDelay); 
