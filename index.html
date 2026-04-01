@@ -106,7 +106,7 @@
       font-style: italic;
     }
 
-/* Opt-out Link Styles */
+    /* Prominent Opt-out Link Styles */
     .opt-out {
       margin-top: 35px;
       padding-top: 25px;
@@ -155,8 +155,8 @@
       
       <p class="copy-instruction">Copy your generated flair and post it in the sticky thread.</p>
 
-   <div class="opt-out">
-        <strong>Manual Override:</strong> Don't like your assigned AI Assigned Flair? 
+      <div class="opt-out">
+        <strong>Manual Override:</strong> Don't like your assigned AI Flair? 
         <br>
         <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">OPT-OUT & DELETE DATA</a>
       </div>
@@ -164,169 +164,92 @@
   </div>
 
   <script>
-    // Bank 1: Adjectives and Descriptors (Added tons of UAE/GCC states of being)
+    // Bank 1: 100% Single Word UAE/GCC Adjectives
     const wordBank1 = [
-      "Sunburnt", "Bougie", "Humid", "Karak-Fueled", "Sandy", "Sweaty", "Opulent", "Traffic-Stuck", 
-      "Fined", "Chiller-Free", "Habibi", "Speeding", "Discounted", "Overpriced", "Lost", "Desert", 
-      "Glitzy", "Sun-Kissed", "AC-Addicted", "Sleepy", "Chaotic", "Enthusiastic", "Reluctant", 
-      "Polite", "Impatient", "Bedouin", "Spiced", "Roasted", "Nomadic", "Generous", "Hospitable", 
-      "Sizzling", "AC-Deprived", "Expatriate", "Habibi-Zoned", "Sand-Blasted", "Souk-Browsing", 
-      "Karak-Stained", "Wasta-Having", "Sun-Baked", "Over-Caffeinated", "Late-Night", "Winter-Loving", 
-      "Summer-Fearing", "Over-Dressed", "Flip-Flop-Wearing", "Oud-Scented", "Thrifty", "Traffic-Dodging", 
-      "Lane-Drifting", "Shawarma-Stuffed", "Boujee", "Fancy", "Frugal", "Vigilant", "Zealous",
-      "Bustling", "Ancient", "Modern", "Gilded", "Absurd", "Accidental", "Aggressive", "Ambitious", 
-      "Anxious", "Awkward", "Bold", "Brave", "Brilliant", "Casual", "Cautious", "Clumsy", "Confident", 
-      "Cozy", "Cynical", "Dapper", "Dazed", "Defiant", "Delirious", "Desperate", "Dramatic", "Eccentric", 
-      "Eager", "Earnest", "Elaborate", "Elegant", "Elite", "Elusive", "Epic", "Erratic", "Exhausted", 
-      "Feral", "Fierce", "Flawless", "Frantic", "Furious", "Gentle", "Glorious", "Goofy", "Graceful", 
-      "Grateful", "Heroic", "Hilarious", "Humble", "Hyper", "Ignorant", "Innocent", "Intense", "Ironic", 
-      "Jaded", "Jealous", "Joyful", "Lazy", "Legendary", "Logical", "Loyal", "Lucky", "Majestic", "Manic", 
-      "Massive", "Mild", "Mischievous", "Modest", "Mysterious", "Naive", "Nervous", "Noble", "Obnoxious", 
-      "Obsessive", "Odd", "Outrageous", "Paranoid", "Patient", "Peculiar", "Petty", "Pompous", "Practical", 
-      "Proud", "Quirky", "Radiant", "Radical", "Rational", "Reckless", "Relaxed", "Restless", "Righteous", 
-      "Ruthless", "Sassy", "Savage", "Sensible", "Serious", "Shady", "Shameless", "Silent", "Silly", 
-      "Sincere", "Slick", "Smug", "Sneaky", "Stubborn", "Subtle", "Suspicious", "Tactical", "Tense", 
-      "Thirsty", "Tired", "Tolerant", "Tragic", "Triumphant", "Unhinged", "Unlucky", "Valiant", "Vicious", 
-      "Wild", "Wise", "Witty"
+      "Sunburnt", "Bougie", "Humid", "Sandy", "Sweaty", "Opulent", "Fined", "Habibi", 
+      "Speeding", "Discounted", "Overpriced", "Glitzy", "Expatriate", "Tailgating", 
+      "Halal", "Haram", "Bedouin", "Spiced", "Roasted", "Nomadic", "Generous", 
+      "Hospitable", "Sizzling", "Thrifty", "Boujee", "Vigilant", "Caffeinated", 
+      "Stuck", "Privileged", "Scented", "Dodging", "Bargaining", "Waiting", "Tapping", 
+      "Bashing", "Sitting", "Tired", "Broke", "Rich", "Lost", "Late", "Sweating", 
+      "Fasting", "Feasting", "Cruising", "Drifting", "Haggling", "Browsing", "Scouring", 
+      "Riding", "Chilling", "Exploring", "Fast", "Slow", "Flashy", "Hidden"
     ];
 
-    // Bank 2: Nouns, Tropes, Locations, and Objects (Added heavy Dubai/GCC cultural nouns)
+    // Bank 2: 100% Single Word UAE/GCC Nouns, Locations, and Objects
     const wordBank2 = [
-      "Patrol", "Shawarma", "Salik", "Talabat", "Brunch", "Entertainer", "Metro", "Massage-Card", "Oud", 
-      "Falcon", "Roundabout", "Scooter", "Staycation", "Dirham", "Jet-Ski", "Karak", "Burj", "Marina", 
-      "Souk", "Mall", "Cafeteria", "Gahwa", "Dates", "Sandstorm", "Careem", "Traffic", "Coffee", "Weekend", 
-      "Sunset", "Delivery", "WiFi", "Bicycle", "Camera", "Ticket", "Bargain", "Heatwave", "Festival", 
-      "Passport", "Luggage", "Oasis", "Hummus", "Falafel", "Zaatar", "Majlis", "Shisha", "Mint-Tea", 
-      "Baklava", "Kunafa", "Mezze", "Camel", "Dallah", "Medina", "Wasta", "Bakhour", "Thobe", "Abaya", 
-      "Fatoosh", "Kabsa", "Dunes", "Bazaar", "Abra", "Dhow", "Rigga", "JBR", "Palm", "Creek", "Satwa", 
-      "Karama", "Deira", "Bur-Dubai", "Global-Village", "Expo", "Frame", "Burj-Al-Arab", "RTA", "DEWA", 
-      "Etisalat", "Du", "VPN", "Nol-Card", "Batrol", "Land-Cruiser", "G-Wagon", "Lexus", "Nissan-Sunny", 
-      "Biryani", "Mandi", "Luqaimat", "Vimto", "Laban", "Zaatar-W-Zeit", "Shatafa", "Majboos", "Harees", 
-      "Omani-Chips", "Chips-Oman", "Karak-Stand", "Kandura", "Ghutra", "Egal", "Jalabiya", "Henna", 
-      "Algorithm", "Anomaly", "Artifact", "Asset", "Beacon", "Blueprint", "Bureaucrat", "Catalyst", 
-      "Cipher", "Cloud", "Comet", "Compass", "Console", "Database", "Dilemma", "Dimension", "Disaster", 
-      "Document", "Domain", "Echo", "Eclipse", "Enigma", "Entity", "Equation", "Error", "Facade", "Fiction", 
-      "Fireball", "Formula", "Fragment", "Gadget", "Galaxy", "Ghost", "Gimmick", "Glacier", "Goblin", 
-      "Hazard", "Hologram", "Horizon", "Illusion", "Incident", "Invoice", "Jackpot", "Jargon", "Labyrinth", 
-      "Laser", "Legacy", "Legend", "Loophole", "Machine", "Matrix", "Meteor", "Mirage", "Missile", 
-      "Molecule", "Momentum", "Monument", "Mystery", "Nebula", "Network", "Ninja", "Noodle", "Omen", 
-      "Oracle", "Orbit", "Paradox", "Parasite", "Phantom", "Phenomenon", "Pixel", "Planet", "Plasma", 
-      "Plugin", "Portal", "Protocol", "Puzzle", "Pyramid", "Quest", "Radar", "Rainbow", "Recipe", "Relic", 
-      "Riddle", "Robot", "Rocket", "Router", "Satellite", "Scenario", "Scroll", "Shadow", "Signal", 
-      "Skeleton", "Software", "Specter", "Sphere", "Spreadsheet", "Sprite", "Statistic", "Strategy", 
-      "Syndicate", "Syntax", "System", "Tactic", "Theory", "Tornado", "Tsunami", "Universe", "Vacuum", 
-      "Variable", "Vector", "Velocity", "Vortex", "Widget", "Wizard"
+      "Patrol", "Shawarma", "Salik", "Talabat", "Brunch", "Entertainer", "Metro", "Oud", 
+      "Falcon", "Roundabout", "Scooter", "Staycation", "Dirham", "Karak", "Burj", "Marina", 
+      "Souk", "Mall", "Cafeteria", "Gahwa", "Dates", "Sandstorm", "Careem", "Traffic", 
+      "Coffee", "Weekend", "Sunset", "Delivery", "WiFi", "Oasis", "Hummus", "Falafel", 
+      "Zaatar", "Majlis", "Shisha", "Baklava", "Kunafa", "Mezze", "Camel", "Dallah", 
+      "Medina", "Wasta", "Bakhour", "Thobe", "Abaya", "Fatoosh", "Kabsa", "Dunes", 
+      "Bazaar", "Abra", "Dhow", "Rigga", "JBR", "Palm", "Creek", "Satwa", "Karama", 
+      "Deira", "Expo", "Frame", "RTA", "DEWA", "Etisalat", "Du", "VPN", "Batrol", 
+      "Lexus", "Biryani", "Mandi", "Luqaimat", "Vimto", "Laban", "Shatafa", "Majboos", 
+      "Harees", "Kandura", "Ghutra", "Egal", "Jalabiya", "Henna", "E11", "Corniche", 
+      "Visa", "Chips", "Gate", "Dubai", "Sharjah", "Ajman", "Fujairah", "RAK", "UAQ", 
+      "Jais", "Hafit", "Passport", "ID", "Fines", "Discount", "Offer", "Sale", "Heat", "Summer"
     ];
 
-    // Bank 3: Personas, Roles, and Actions (Added GCC slang and city sub specific roles)
+    // Bank 3: 100% Single Word UAE/GCC Personas and Roles
     const wordBank3 = [
-      "Tailgater", "Connoisseur", "Evader", "Enthusiast", "Survivor", "Influencer", "Commuter", "VIP", 
-      "Navigator", "Hunter", "Complainer", "Enjoyer", "Bargainer", "Expert", "Tourist", "Resident", 
-      "Expat", "Founder", "Driver", "Shopper", "Foodie", "Explorer", "Master", "Novice", "Critic", 
-      "Defender", "Hoarder", "Philosopher", "Observer", "Wanderer", "Collector", "Strategist", "Dreamer", 
-      "Overthinker", "Procrastinator", "Hero", "Legend", "Local", "Reviewer", "Champion", "Sheikh", 
-      "Vendor", "Host", "Weaver", "Poet", "Trader", "Nomad", "Captain", "Diplomat", "Chamak", "Mudeer", 
-      "Arbab", "Habibti", "Brother", "Yalla-Yeller", "Lane-Hogger", "Flash-Blinker", "Expo-Visitor", 
-      "Mall-Walker", "Shawarma-Critic", "Brunch-Goer", "Staycationer", "Golden-Visa-Holder", 
-      "Tourist-Guide", "Desert-Driver", "Dune-Basher", "Oud-Sprayer", "Majlis-Host", "Haggler", "Bossman",
-      "Academic", "Acrobat", "Admiral", "Agent", "Ambassador", "Analyst", "Architect", "Assassin", 
-      "Astronaut", "Athlete", "Auditor", "Author", "Baker", "Bandit", "Banker", "Baron", "Botanist", 
-      "Brawler", "Builder", "Burglar", "Carpenter", "Cartographer", "Chancellor", "Chef", "Chemist", 
-      "Cleric", "Clown", "Commander", "Comrade", "Consultant", "Cop", "Courier", "Creator", "Crusader", 
-      "Curator", "Cyborg", "Dancer", "Dealer", "Delegate", "Deputy", "Designer", "Detective", "Dictator", 
-      "Director", "Doctor", "Duke", "Economist", "Editor", "Emperor", "Engineer", "Executive", "Fanatic", 
-      "Farmer", "Fighter", "Fool", "Freelancer", "Gambler", "General", "Genius", "Gladiator", "Governor", 
-      "Guard", "Hacker", "Healer", "Historian", "Hustler", "Inspector", "Instructor", "Intern", "Inventor", 
-      "Investigator", "Judge", "Knight", "Leader", "Magician", "Magnate", "Manager", "Mayor", "Mechanic", 
-      "Medic", "Merchant", "Messenger", "Minion", "Monarch", "Monk", "Mutant", "Mystic", "Narrator", 
-      "Officer", "Operator", "Outlaw", "Overlord", "Paladin", "Patron", "Peasant", "Pilot", "Pirate", 
-      "Player", "Politician", "President", "Priest", "Principal", "Professor", "Prophet", "Ranger", 
-      "Rebel", "Recruit", "Referee", "Reporter", "Rogue", "Sailor", "Samurai", "Scholar", "Scientist", 
-      "Scout", "Scribe", "Senator", "Sheriff", "Smuggler", "Sniper", "Soldier", "Spy", "Squire", "Student", 
-      "Surgeon", "Tactician", "Teacher", "Technician", "Thief", "Traitor", "Warden", "Warrior", "Watcher", 
-      "Worker"
+      "Tailgater", "Evader", "Commuter", "VIP", "Complainer", "Enjoyer", "Bargainer", 
+      "Tourist", "Resident", "Expat", "Founder", "Driver", "Shopper", "Foodie", 
+      "Explorer", "Defender", "Wanderer", "Local", "Sheikh", "Vendor", "Host", 
+      "Trader", "Nomad", "Diplomat", "Chamak", "Mudeer", "Arbab", "Habibti", "Brother", 
+      "Staycationer", "Haggler", "Bossman", "Freelancer", "Hustler", "Inspector", 
+      "Manager", "Influencer", "Connoisseur", "Yeller", "Hogger", "Blinker", "Visitor", 
+      "Walker", "Critic", "Guide", "Basher", "Sprayer", "Agent", "Bro", "Uncle", 
+      "Dodger", "Hunter", "Lowballer", "Brewer", "Contributor", "Survivor", "Warrior", 
+      "Negotiator", "Cruiser", "Captain", "Broker", "Expert", "Novice", "Master"
     ];
 
-    // THE MASSIVE LIST OF FAKE TASKS
+    // Pure UAE/GCC Fake Tasks
     const fakeTasks = [
       "Bypassing VPN protocols...",
-      "Checking IP connection logs...",
-      "Tracking down your Reddit alt accounts...",
-      "Undeleting your shameful comments from 2021...",
-      "Judging your lowball offers in the classifieds...",
+      "Judging your lowball offers on Dubizzle...",
       "Calculating your Karak-to-Blood ratio...",
       "Cross-referencing unpaid Salik fines...",
       "Scanning Talabat order history for poor dietary choices...",
-      "Taking a 5 minute break to eat a shawarma...",
-      "Determining maximum allowed aesthetic value...",
-      "Analyzing dashcam footage for lane discipline...",
-      "Uploading your browser history to the moderation cloud...",
-      "Forwarding your complaints to the void...",
-      "Accessing hidden WhatsApp backups...",
-      "Measuring distance to nearest Karak spot...",
+      "Taking a 5 minute break to eat a spicy shawarma...",
+      "Analyzing dashcam footage for lane discipline on SZR...",
+      "Measuring your daily distance to the nearest Karak spot...",
       "Evaluating your complaints about summer humidity...",
-      "Cross-referencing your post history with local news...",
-      "Downloading your 'Homework' folder to the cloud...",
-      "Reporting your tint percentage to authorities...",
+      "Reporting your tint percentage to the authorities...",
       "Analyzing your reliance on massage cards...",
       "Checking your Noon shopping cart for poor financial decisions...",
       "Judging your use of the word 'Inshallah' as a delay tactic...",
-      "Searching for your lost Emirates ID...",
-      "Triangulating your position based on nearest shawarma shop...",
-      "Auditing your last argument in the daily thread...",
+      "Searching for your lost Emirates ID in the couch cushions...",
+      "Triangulating your position based on nearest cafeteria...",
       "Scanning your camera roll for blurry Burj Khalifa photos...",
-      "Re-activating your cancelled gym membership...",
-      "Calculating the structural integrity of your gaming chair...",
       "Syncing with DEWA to check if you left the AC on...",
-      "Translating your passive-aggressive emails...",
-      "Detecting high levels of Wasta usage...",
-      "Downloading more RAM...",
-      "Deploying tactical downvotes...",
+      "Detecting unusually high levels of Wasta usage...",
       "Submitting your IP to the RTA for review...",
       "Searching for your lost Nol card...",
       "Calculating the aerodynamics of your Nissan Patrol...",
-      "Judging your use of the 'Need Advice' flair...",
       "Consulting the oracle at Global Village...",
       "Evaluating your survival chances in July...",
-      "Scanning your profile for hidden cryptocurrency shills...",
       "Translating your local slang back into English...",
-      "Cross-referencing your posts with common sense...",
-      "Upvoting our own moderator comments...",
       "Optimizing shawarma delivery routes...",
-      "Investigating your questionable taste in memes...",
-      "Defragmenting your nostalgia...",
-      "Calibrating the Ban Hammer...",
-      "Re-reading the subreddit rules for you..."
+      "Checking your Golden Visa eligibility...",
+      "Reviewing your Hessa Street rage levels..."
     ];
 
-    // EXPANDED SASSY QUIPS
+    // UAE/GCC Sassy Quips
     const sassyQuips = [
-      "<span class='term-sassy'>We can see your patience running out...</span>",
-      "<span class='term-sassy'>Is that a sigh we detect through your microphone?</span>",
+      "<span class='term-sassy'>We can see your patience running out faster than Salik credit...</span>",
       "<span class='term-sassy'>Taking a quick Karak break. Be right back...</span>",
-      "<span class='term-sassy'>If you refresh the page, we ban your main account.</span>",
+      "<span class='term-sassy'>If you refresh the page, we report your window tint.</span>",
       "<span class='term-sassy'>Your flair is currently stuck in E11 traffic...</span>",
-      "<span class='term-sassy'>Sighing audibly in binary...</span>",
-      "<span class='term-sassy'>Hold on, the hamster powering the server died. Finding a replacement...</span>",
-      "<span class='term-sassy'>Almost done... or maybe we just started.</span>",
-      "<span class='term-sassy'>You're clicking too fast. Calm down.</span>",
-      "<span class='term-sassy'>We know what you did in the 2022 daily thread.</span>",
-      "<span class='term-sassy'>Are you really going to use this flair?</span>",
-      "<span class='term-sassy'>Judging you heavily right now...</span>",
-      "<span class='term-sassy'>This would be faster if you had premium...</span>",
-      "<span class='term-sassy'>Error 404: Sense of humor not found. Compensating...</span>",
-      "<span class='term-sassy'>Don't look behind you.</span>",
-      "<span class='term-sassy'>Is it getting hot in here, or is it just your CPU?</span>",
-      "<span class='term-sassy'>Still here? Fascinating.</span>",
-      "<span class='term-sassy'>We're purposely making this take longer, by the way.</span>",
+      "<span class='term-sassy'>Hold on, the generator is waiting for its Talabat delivery...</span>",
       "<span class='term-sassy'>This is harder than finding parking in Deira.</span>",
-      "<span class='term-sassy'>Your data is... surprisingly boring.</span>",
-      "<span class='term-sassy'>Did you really just try to click somewhere else?</span>",
-      "<span class='term-sassy'>Loading... just kidding, we're just ignoring you.</span>",
-      "<span class='term-sassy'>Blinking won't make it go faster.</span>",
-      "<span class='term-sassy'>Our AI is currently reconsidering its life choices.</span>",
-      "<span class='term-sassy'>Please hold. Your call is important to us. LOL.</span>",
-      "<span class='term-sassy'>We honestly expected better from a former mod...</span>"
+      "<span class='term-sassy'>Your data is... surprisingly boring. Needs more Chips Oman.</span>",
+      "<span class='term-sassy'>Did you really just try to click somewhere else? Yalla, wait.</span>",
+      "<span class='term-sassy'>Our AI is currently avoiding Hessa Street. Re-routing...</span>",
+      "<span class='term-sassy'>Please hold. Your call is important to us. Inshallah we answer soon.</span>",
+      "<span class='term-sassy'>Are you really going to use this flair? Yikes.</span>",
+      "<span class='term-sassy'>This would be faster if you had Wasta...</span>"
     ];
 
     function getRandomWord(array) {
@@ -374,7 +297,6 @@
       ];
       
       let step = 0;
-      let hasStuck = false; // Track if we've already done the 10-second hang
 
       function printTerminalLine() {
         // Remove cursor from previous line if it exists
@@ -390,10 +312,10 @@
           
           step++;
 
-       // Base random delay (1.2 to 2.8 seconds)
+          // Normal delay without the 10-second hang (1.2 to 2.8 seconds)
           let randomDelay = Math.floor(Math.random() * 1600) + 1200; 
 
-          setTimeout(printTerminalLine, randomDelay);
+          setTimeout(printTerminalLine, randomDelay); 
 
         } else {
           // Finished terminal
