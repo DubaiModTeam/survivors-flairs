@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mod-AI Flair Prompt Generator</title>
+  <style>
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+      text-align: center; 
+      padding: 20px; 
+      margin: 0;
+      background-color: #f6f7f8; 
+      color: #1c1c1c;
+    }
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80vh;
+    }
+    .portal-box { 
+      background: white; 
+      padding: 40px; 
+      border-radius: 8px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+      width: 100%;
+      max-width: 600px;
+    }
+    h2 { margin-top: 0; color: #1e7e34; font-weight: 800;}
+    .survivor-tag { font-size: 12px; background: #e6f4ea; color: #1e7e34; padding: 4px 8px; border-radius: 4px; vertical-align: middle; font-weight: bold;}
+    p.instruction { color: #5a5a5a; font-size: 15px; margin-bottom: 25px; line-height: 1.5;}
+    
+    #prompt-display {
+      background: #fcfcfc;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 30px 20px;
+      margin-bottom: 25px;
+      min-height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .word {
+      font-size: 24px;
+      font-weight: bold;
+      color: #0079D3;
+      margin: 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button#generateBtn { 
+      padding: 14px 28px; 
+      background-color: #ff4500;
+      color: white; 
+      border: none; 
+      border-radius: 999px; 
+      cursor: pointer; 
+      font-weight: bold; 
+      font-size: 18px;
+      transition: background-color 0.2s;
+      box-shadow: 0 4px 6px rgba(255, 69, 0, 0.2);
+    }
+    button#generateBtn:hover { background-color: #e03d00; transform: translateY(-1px); }
+    button#generateBtn:active { transform: translateY(1px); }
+
+    .copy-instruction {
+      font-size: 13px;
+      color: #888;
+      margin-top: 20px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-container">
+    <div class="portal-box">
+      <h2>Mod-AI: Safe Mode <span class="survivor-tag">PURGE SURVIVOR</span></h2>
+      <p class="instruction">
+        Congratulations on surviving the Predictive Action List. Click the button below to generate your 3 random words. Copy and paste them into the Reddit thread to receive your custom flair!
+      </p>
+      
+      <div id="prompt-display">
+        <span class="word" id="word1">???</span>
+        <span class="word" id="word2">???</span>
+        <span class="word" id="word3">???</span>
+      </div>
+
+      <button id="generateBtn" onclick="generateWords()">Generate My Prompts</button>
+      
+      <p class="copy-instruction">Post these exact three words in the sticky thread.</p>
+    </div>
+  </div>
+
+  <script>
+    // Bank 1: Adjectives and Descriptors
+    const wordBank1 = [
+      "Sunburnt", "Bougie", "Humid", "Karak-Fueled", "Sandy", 
+      "Sweaty", "Opulent", "Traffic-Stuck", "Fined", "Chiller-Free", 
+      "Habibi", "Speeding", "Discounted", "Overpriced", "Lost",
+      "Desert", "Glitzy", "Sun-Kissed", "AC-Addicted", "Sleepy", 
+      "Chaotic", "Enthusiastic", "Reluctant", "Professional", "Amateur", 
+      "Caffeinated", "Grumpy", "Cheerful", "Confused", "Dedicated", 
+      "Wandering", "Optimistic", "Sarcastic", "Chill", "Foggy", 
+      "Vintage", "Authentic", "Hidden", "Polite", "Impatient"
+    ];
+
+    // Bank 2: Nouns and Tropes
+    const wordBank2 = [
+      "Patrol", "Shawarma", "Salik", "Talabat", "Brunch", 
+      "Entertainer", "Metro", "Massage-Card", "Oud", "Falcon", 
+      "Roundabout", "Scooter", "Staycation", "Dirham", "Jet-Ski",
+      "Karak", "Burj", "Marina", "Souk", "Mall", 
+      "Cafeteria", "Gahwa", "Dates", "Sandstorm", "Careem", 
+      "Traffic", "Coffee", "Weekend", "Sunset", "Delivery", 
+      "WiFi", "Bicycle", "Camera", "Ticket", "Bargain", 
+      "Heatwave", "Festival", "Passport", "Luggage", "Oasis"
+    ];
+
+    // Bank 3: Personas and Roles
+    const wordBank3 = [
+      "Tailgater", "Connoisseur", "Evader", "Enthusiast", "Survivor", 
+      "Influencer", "Commuter", "VIP", "Navigator", "Hunter", 
+      "Complainer", "Enjoyer", "Bargainer", "Expert", "Tourist",
+      "Resident", "Expat", "Founder", "Driver", "Shopper", 
+      "Foodie", "Explorer", "Master", "Novice", "Critic", 
+      "Defender", "Hoarder", "Philosopher", "Observer", "Wanderer", 
+      "Collector", "Strategist", "Dreamer", "Overthinker", "Procrastinator", 
+      "Hero", "Legend", "Local", "Reviewer", "Champion"
+    ];
+
+    function getRandomWord(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function generateWords() {
+      const w1 = document.getElementById("word1");
+      const w2 = document.getElementById("word2");
+      const w3 = document.getElementById("word3");
+      const btn = document.getElementById("generateBtn");
+
+      // Add a quick shuffle effect for fun
+      let shuffles = 0;
+      btn.disabled = true;
+      
+      const interval = setInterval(() => {
+        w1.innerText = getRandomWord(wordBank1);
+        w2.innerText = getRandomWord(wordBank2);
+        w3.innerText = getRandomWord(wordBank3);
+        shuffles++;
+
+        if (shuffles > 15) { // Increased shuffle time slightly for the larger lists
+          clearInterval(interval);
+          btn.disabled = false;
+          btn.innerText = "Re-Roll Prompts";
+        }
+      }, 50);
+    }
+  </script>
+</body>
+</html>
